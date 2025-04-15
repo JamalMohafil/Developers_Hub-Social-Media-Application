@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>نظام الإشعارات</title>
+    <script src="https://cdn.socket.io/4.3.2/socket.io.min.js" crossorigin="anonymous"></script>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        direction: rtl;
+        margin: 20px;
+      }
+      .notification {
+        padding: 10px;
+        margin-bottom: 10px;
+        background-color: #f5f5f5;
+        border-right: 4px solid #3498db;
+        border-radius: 4px;
+      }
+      .notification-time {
+        font-size: 12px;
+        color: #888;
+      }
+      #notifications-container {
+        max-width: 500px;
+      }
+      #connection-status {
+        padding: 5px 10px;
+        border-radius: 4px;
+        display: inline-block;
+        margin-bottom: 15px;
+      }
+      .connected {
+        background-color: #2ecc71;
+        color: white;
+      }
+      .disconnected {
+        background-color: #e74c3c;
+        color: white;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>🔔 نظام الإشعارات</h2>
+    <div id="connection-status" class="disconnected">غير متصل</div>
+    <div id="notifications-container"></div>
+
+    <script>
+      // تخزين معرفات الإشعارات المستلمة لتجنب التكرار
+      const receivedNotifications = new Set();
+      const notificationsContainer = document.getElementById('notifications-container');
+      const connectionStatus = document.getElementById('connection-status');
+      
+      // تحديد هوية المستخدم
+      const userId = '5704dbf7-d88c-4a06-8747-ed51680e5e31';
+
+      // الاتصال بـ namespace 'notifications' مع تحديد userId في الـ query
+      const socket = io('http://localhost:5000/notifications', {
+        query: { userId },
+        reconnectionAttempts: 5,
+        reconnectionDelay: 1000
+      });
+
+      // عند الاتصال
+      socket.on('connect', () => {
+        console.log('✅ Connected to WebSocket server');
+        connectionStatus.textContent = 'متصل';
+        connectionStatus.className = 'connected';
+        
+        // ملاحظة: لسنا بحاجة لإرسال حدث subscribe_notifications لأن الاتصال يعالج هذا تلقائيًا
+      });
+
+      // استقبال الإشعارات
+      socket.on('notifications', data => {
+        // التحقق من تكرار الإشعار
+        if (!data.id || receivedNotifications.has(data.id)) {
+          console.log('🔄 Duplicate notification skipped:', data.id);
+          return;
+        }
+        
+        console.log('🔔 Notification Received:', data);
+        receivedNotifications.add(data.id);
+        
+        // إضافة الإشعار إلى واجهة المستخدم
+        displayNotification(data);
+      });
+
+      // عند قطع الاتصال
+      socket.on('disconnect', () => {
+        console.log('❌ Disconnected from WebSocket server');
+        connectionStatus.textContent = 'غير متصل';
+        connectionStatus.className = 'disconnected';
+      });
+
+      // تحديث حالة الاتصال
+      socket.on('connect_error', (error) => {
+        console.error('Connection error:', error);
+        connectionStatus.textContent = 'خطأ في الاتصال';
+        connectionStatus.className = 'disconnected';
+      });
+
+      // عرض الإشعار في الصفحة
+      function displayNotification(notification) {
+        const div = document.createElement('div');
+        div.className = 'notification';
+        
+        const timestamp = notification.timestamp ? new Date(notification.timestamp) : new Date();
+        const formattedTime = formatTime(timestamp);
+        
+        div.innerHTML = `
+          <div>${notification.message}</div>
+          <div class="notification-time">${formattedTime}</div>
+        `;
+        
+        // إضافة الإشعار في بداية القائمة
+        notificationsContainer.insertBefore(div, notificationsContainer.firstChild);
+      }
+
+      // تنسيق الوقت
+      function formatTime(date) {
+        return date.toLocaleTimeString('ar-SA', { 
+          hour: '2-digit', 
+          minute: '2-digit',
+          hour12: true 
+        });
+      }
+    </script>
+  </body>
+</html>

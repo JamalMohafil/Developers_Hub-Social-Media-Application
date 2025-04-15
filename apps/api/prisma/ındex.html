@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prisma Schema to Diagram</title>
+  <script type="module" src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs"></script>
+  <style>
+    .mermaid {
+      background-color: #f0f0f0;
+      padding: 10px;
+      border-radius: 5px;
+      margin: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Prisma Schema to Diagram</h1>
+  
+  <!-- Form to input Prisma Schema -->
+  <textarea id="prismaSchema" rows="10" cols="50" placeholder="Paste your Prisma schema here..."></textarea>
+  <button onclick="generateDiagram()">Generate Diagram</button>
+  
+  <!-- Placeholder for mermaid diagram -->
+  <div id="diagram" class="mermaid"></div>
+
+  <script>
+    // Function to generate the diagram
+    function generateDiagram() {
+      const prismaSchema = document.getElementById("prismaSchema").value;
+      
+      // Example conversion to Mermaid format (simplified)
+      const mermaidSchema = convertPrismaToMermaid(prismaSchema);
+      
+      // Display the Mermaid diagram
+      const diagramContainer = document.getElementById("diagram");
+      diagramContainer.innerHTML = mermaidSchema;
+      
+      // Reinitialize mermaid to render the diagram
+      mermaid.init();
+    }
+
+    // Function to convert Prisma schema to Mermaid format (simplified)
+    function convertPrismaToMermaid(schema) {
+      let mermaidFormat = 'erDiagram\n';
+      
+      // This is just a simple converter that grabs the Prisma model definitions
+      const regex = /model (\w+) \{([\s\S]*?)\}/g;
+      let match;
+      while ((match = regex.exec(schema)) !== null) {
+        const modelName = match[1];
+        const fields = match[2].split('\n').map(line => line.trim()).filter(Boolean);
+
+        mermaidFormat += `  ${modelName} { \n`;
+        fields.forEach(field => {
+          const [fieldName, fieldType] = field.split(' ');
+          mermaidFormat += `    ${fieldName} ${fieldType}\n`;
+        });
+        mermaidFormat += '  }\n';
+      }
+      
+      return mermaidFormat;
+    }
+  </script>
+</body>
+</html>
