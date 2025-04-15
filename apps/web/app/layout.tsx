@@ -4,6 +4,10 @@ import { Poppins } from "next/font/google";
 import "./globals.css";
 import Header from "../components/Header";
 import { getSession } from "../lib/session";
+import { SessionType } from "@/lib/type";
+import { ToastContainer, toast } from "react-toastify";
+import Footer from "@/components/Footer";
+import { FollowProvider } from "@/context/followContext";
 
 // Load Poppins font for all text with various weights
 const poppins = Poppins({
@@ -23,13 +27,15 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const session: any = await getSession();
+  const session: SessionType | null = await getSession();
   console.log(session);
   return (
     <html lang="en">
-      <body className={`${poppins.variable} font-sans`}>
+      <body className={`${poppins.variable} dark`} suppressHydrationWarning>
         <Header serverSession={session} />
-        {children}
+        <FollowProvider>{children}</FollowProvider>
+        <Footer />
+        <ToastContainer />
       </body>
     </html>
   );
