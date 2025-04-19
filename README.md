@@ -1,84 +1,238 @@
-# Turborepo starter
+# 👨‍💻 Developers Hub - Social Media Platform for Developers
 
-This Turborepo starter is maintained by the Turborepo core team.
+**Developers Hub** is a social media platform designed specifically for developers, where they can connect, share projects, and engage with each other. The platform is built using **Next.js** for the frontend and **Nest.js** for the backend, providing a scalable and maintainable architecture.
 
-## Using this example
+![Website Preview](https://camo.githubusercontent.com/bf0749f039d9ed4d83d98d4d56c9b49a8942c354a81f9f02f09afd9492cbf2e0/68747470733a2f2f6a616d616c6d6f686166696c2e76657263656c2e6170702f70726f6a656374732f646576656c6f706572735f6875622e706e67)
 
-Run the following command:
+---
 
-```sh
-npx create-turbo@latest
+## 🛠️ Technologies Used
+
+### Backend:
+- Nest.js with Modular Monolithic Architecture
+- Redis Pub/Sub for real-time notifications
+- Redis for caching to improve performance
+- BullMQ for background tasks like email notifications
+- PostgreSQL as the main database
+- Prisma ORM for database management
+- Socket.io for real-time communication
+
+### Frontend:
+- Next.js 15 for fast and SEO-friendly pages with Server-Side Rendering (SSR)
+- TailwindCSS for styling
+- Shadcn UI for modern UI components
+
+---
+
+## 🚀 How to Run the Project Locally
+
+### ✅ Prerequisites
+- Docker and Docker Compose installed
+- Redis running locally on port 6887:
+
+```bash
+docker run -p 6887:6379 redis
 ```
 
-## What's inside?
+- A PostgreSQL or MySQL database (local or via Docker)
+- Your SMTP credentials: `EMAIL` and `PASSWORD` (e.g., Gmail or Mailtrap)
+- `.env` files configured with:
+  - `DATABASE_URL`
+  - `REDIS_URL`
+  - `SMTP_EMAIL`, `SMTP_PASSWORD`, etc.
 
-This Turborepo includes the following packages/apps:
+---
 
-### Apps and Packages
+## 🗂️ Project Structure
 
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
-
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
-
-### Utilities
-
-This Turborepo has some additional tools already setup for you:
-
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
-
-### Build
-
-To build all apps and packages, run the following command:
+The code is organized into the `apps` folder:
 
 ```
-cd my-turborepo
-pnpm build
+apps/
+├── api   # Nest.js backend
+└── web   # Next.js frontend
 ```
 
-### Develop
+---
 
-To develop all apps and packages, run the following command:
+## 📦 Installation Steps
 
-```
-cd my-turborepo
-pnpm dev
-```
-
-### Remote Caching
-
-> [!TIP]
-> Vercel Remote Cache is free for all plans. Get started today at [vercel.com](https://vercel.com/signup?/signup?utm_source=remote-cache-sdk&utm_campaign=free_remote_cache).
-
-Turborepo can use a technique known as [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
-
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup?utm_source=turborepo-examples), then enter the following commands:
-
-```
-cd my-turborepo
-npx turbo login
+### Clone the repository:
+```bash
+git clone https://github.com/JamalMohafil/Developers_Hub-Social-Media-Application.git
+cd Developers_Hub-Social-Media-Application
 ```
 
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
-
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
-
+### Install dependencies:
+#### Backend:
+```bash
+cd apps/api
+npm install
 ```
-npx turbo link
+#### Frontend:
+```bash
+cd ../web
+npm install
 ```
 
-## Useful Links
+### Create your `.env` files in both `apps/api` and `apps/web`, and add the necessary environment variables.
 
-Learn more about the power of Turborepo:
+---
 
-- [Tasks](https://turbo.build/repo/docs/core-concepts/monorepos/running-tasks)
-- [Caching](https://turbo.build/repo/docs/core-concepts/caching)
-- [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching)
-- [Filtering](https://turbo.build/repo/docs/core-concepts/monorepos/filtering)
-- [Configuration Options](https://turbo.build/repo/docs/reference/configuration)
-- [CLI Usage](https://turbo.build/repo/docs/reference/command-line-reference)
+## ▶️ Run the Project
+
+### Backend (API):
+```bash
+npm run start:dev
+```
+
+### Frontend (Web):
+```bash
+npm run dev
+```
+
+---
+
+## 🌍 Live Preview
+
+Watch the demo on YouTube: [Watch the demo on YouTube](https://www.youtube.com/watch?v=3nEbnw6rnM4)
+
+---
+
+## 📱 Connect with Me
+
+- [LinkedIn](https://www.linkedin.com/in/jamal-mohafil/)
+- [Instagram](https://www.instagram.com/jamal_mohafil)
+- [YouTube](https://www.youtube.com/@jamal_mohafil)
+
+---
+
+## ⚡ About the Project
+
+This project was an exciting learning journey for me, and through it, I explored powerful tools like **Redis** and **BullMQ** for building large-scale applications. During development, I faced numerous challenges, but overcoming them helped me understand the best practices for building scalable and maintainable projects. **Next.js** allowed me to create a fast and efficient frontend for the platform, and I'm excited about the future development of Developers Hub.
+
+---
+
+## 🔖 License
+
+This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
+
+---
+
+# 🧑‍💻 Developers Hub - منصة تواصل اجتماعي للمطورين
+
+**Developers Hub** هي منصة تواصل اجتماعي مخصصة للمطورين، فيهن يتواصلوا مع بعض، يشاركوا مشاريعهم، ويتفاعلوا مع بعض. المنصة مبنية باستخدام **Next.js** للواجهة الأمامية و**Nest.js** للخلفية، وهاد الشي بيوفر هيكلية قابلة للتوسع والصيانة بسهولة.
+
+![صورة الموقع](https://camo.githubusercontent.com/bf0749f039d9ed4d83d98d4d56c9b49a8942c354a81f9f02f09afd9492cbf2e0/68747470733a2f2f6a616d616c6d6f686166696c2e76657263656c2e6170702f70726f6a656374732f646576656c6f706572735f6875622e706e67)
+
+---
+
+## 🛠️ التقنيات المستخدمة
+
+### Backend:
+- Nest.js مع Modular Monolithic Architecture
+- Redis Pub/Sub للإشعارات الفورية
+- Redis للتخزين المؤقت (Caching) لتحسين الأداء
+- BullMQ لمعالجة المهام الخلفية مثل إرسال الإيميلات
+- PostgreSQL كقاعدة بيانات رئيسية
+- Prisma ORM لإدارة قاعدة البيانات
+- Socket.io للتواصل في الوقت الفعلي
+
+### Frontend:
+- Next.js 15 لإنشاء صفحات سريعة ومتوافقة مع محركات البحث (SEO) مع دعم الـ SSR
+- TailwindCSS للتصميم
+- Shadcn UI لتقديم مكونات واجهة مستخدم حديثة
+
+---
+
+## 🚀 كيفية تشغيل المشروع محليًا
+
+### ✅ المتطلبات الأساسية
+
+- وجود **Docker** و **Docker Compose** مثبتين
+- تشغيل **Redis** محليًا على المنفذ `6887`:
+```bash
+docker run -p 6887:6379 redis
+```
+- قاعدة بيانات PostgreSQL أو MySQL (محلية أو من خلال Docker)
+- بيانات اعتماد SMTP الخاصة بك: `EMAIL` و `PASSWORD`
+- إعداد ملف `.env` يحتوي على:
+  - `DATABASE_URL`
+  - `REDIS_URL`
+  - `SMTP_EMAIL`, `SMTP_PASSWORD`, وغيرها
+
+---
+
+## 🗂️ هيكلية المشروع
+
+```bash
+apps/
+├── api   # الواجهة الخلفية (Nest.js)
+└── web   # الواجهة الأمامية (Next.js)
+```
+
+---
+
+## 📦 خطوات التثبيت
+
+### استنساخ المستودع:
+```bash
+git clone https://github.com/JamalMohafil/Developers_Hub-Social-Media-Application.git
+cd Developers_Hub-Social-Media-Application
+```
+
+### تثبيت الحزم:
+#### الخلفية (Backend):
+```bash
+cd apps/api
+npm install
+```
+#### الواجهة الأمامية (Frontend):
+```bash
+cd ../web
+npm install
+```
+
+### أنشئ ملفات `.env` داخل `apps/api` و `apps/web` وأضف متغيرات البيئة المطلوبة كما ذُكر أعلاه.
+
+---
+
+## ▶️ تشغيل المشروع
+
+### الخلفية (API):
+```bash
+npm run start:dev
+```
+
+### الواجهة الأمامية (Web):
+```bash
+npm run dev
+```
+
+---
+
+## 🌍 معاينة حية
+
+فيك تشوف العرض التوضيحي للمشروع على يوتيوب:  
+[شاهد العرض التوضيحي على يوتيوب](https://www.youtube.com/watch?v=3nEbnw6rnM4)
+
+---
+
+## 📱 تواصل معي
+
+- [لينكد إن](https://www.linkedin.com/in/jamal-mohafil/)
+- [إنستغرام](https://www.instagram.com/jamal_mohafil)
+- [يوتيوب](https://www.youtube.com/@jamal_mohafil)
+
+---
+
+## ⚡ عن المشروع
+
+المشروع كان رحلة تعلم كتير مثيرة إلي، ومن خلاله اكتشفت أدوات قوية مثل **Redis** و**BullMQ** لبناء تطبيقات ضخمة. خلال مرحلة التطوير، واجهت كتير تحديات، بس التغلب عليهن ساعدني فهم أفضل الطرق لبناء مشاريع قابلة للتوسع والصيانة. استخدمت **Next.js** لعمل واجهة أمامية سريعة وفعالة للمنصة، وأنا متحمس لتطوير **Developers Hub** أكتر بالمستقبل.
+
+---
+
+## 🔖 الترخيص
+
+هذا المشروع مرخص بموجب **MIT License** - راجع ملف [LICENSE](LICENSE) لمزيد من التفاصيل.
+
